@@ -12,8 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PitchGo',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home:  SplashScreen(), // SplashScreen added here
+      theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+              surfaceTintColor: Colors.white, backgroundColor: Colors.white),
+          scaffoldBackgroundColor: Colors.white),
+      home: SplashScreen(), // SplashScreen added here
       debugShowCheckedModeBanner: false, // Optional: Removes the debug banner
     );
   }
