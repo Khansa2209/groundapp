@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pitchgo/add_ground/add_ground.dart';
 
 import '../common_widget/common_text.dart';
 
@@ -49,6 +50,7 @@ class GroundsListScreen extends StatelessWidget {
               alignment: Alignment.centerRight, // Aligned to the right side
               child: GestureDetector(
                 onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewGroundScreen()));
                   // Add functionality here
                 },
                 child: Container(
@@ -134,6 +136,8 @@ class GroundCard extends StatelessWidget {
                 // Changed to a simple "Edit" text button
                 GestureDetector(
                   onTap: () {
+
+
                     // Edit action here
                   },
                   child: const Text(
