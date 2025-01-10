@@ -33,7 +33,7 @@ class SlotDetailScreen extends StatelessWidget {
                       )
                     ]),
                 child: const Column(
-                  spacing: 10,
+                  // spacing: 10,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
