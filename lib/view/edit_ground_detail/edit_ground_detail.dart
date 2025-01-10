@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:pitchgo/app_constant/app_color.dart';
 import 'package:pitchgo/app_constant/app_string.dart';
 import 'package:pitchgo/common_widget/common_botton.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../common_widget/container/review_card.dart';
 import '../../common_widget/container/time_box_container.dart';
@@ -18,22 +18,9 @@ class EditGroundDetailScreen extends StatefulWidget {
 }
 
 class _EditGroundDetailScreenState extends State<EditGroundDetailScreen> {
-  String _selectedMonth = "Jan";
-  // Default selected value
-  final List<String> _months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ];
+  DateTime selectedDate = DateTime.now();
+  String selectedMonth = DateFormat.MMMM().format(DateTime.now());
+  List<DateTime> daysInMonth = [];
 
   final List<String> bookedSlot = [
     "13:30",
@@ -48,6 +35,34 @@ class _EditGroundDetailScreenState extends State<EditGroundDetailScreen> {
     "16:30",
     "17:30",
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _generateDaysInMonth();
+  }
+
+  void _generateDaysInMonth() {
+    // Generate all dates for the selected month
+    final DateTime firstDay =
+        DateTime(selectedDate.year, selectedDate.month, 1);
+    final DateTime lastDay =
+        DateTime(selectedDate.year, selectedDate.month + 1, 0);
+    daysInMonth = List.generate(
+      lastDay.day,
+      (index) => DateTime(selectedDate.year, selectedDate.month, index + 1),
+    );
+    setState(() {});
+  }
+
+  void _onMonthChanged(String newMonth) {
+    setState(() {
+      final int monthIndex = DateFormat.MMMM().parse(newMonth).month;
+      selectedDate = DateTime(selectedDate.year, monthIndex, 1);
+      selectedMonth = newMonth;
+      _generateDaysInMonth();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,30 +140,86 @@ class _EditGroundDetailScreenState extends State<EditGroundDetailScreen> {
                       Icons.keyboard_arrow_down_rounded,
                       color: AppColors.black0C0507,
                     ),
-                    value: _selectedMonth,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedMonth = newValue!;
-                      });
-                    },
-                    items:
-                        _months.map<DropdownMenuItem<String>>((String month) {
-                      return DropdownMenuItem<String>(
+                    value: selectedMonth,
+                    items: List.generate(12, (index) {
+                      String month =
+                          DateFormat.MMMM().format(DateTime(0, index + 1));
+                      return DropdownMenuItem(
                         value: month,
                         child: Text(
                           month,
                           style: const TextStyle(color: AppColors.black0C0507),
                         ),
                       );
-                    }).toList(),
+                    }),
+                    onChanged: (newMonth) {
+                      if (newMonth != null) {
+                        _onMonthChanged(newMonth);
+                      }
+                    },
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 50,
-          ),
+
+          // Horizontal Date Picker
+          Container(
+              height: 90,
+              margin: const EdgeInsets.all(15),
+              padding: const EdgeInsets.only(top: 8, bottom: 8),
+              decoration: BoxDecoration(
+                color: Colors.pink.shade50,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: daysInMonth.length,
+                itemBuilder: (context, index) {
+                  final DateTime day = daysInMonth[index];
+                  final bool isSelected = selectedDate.day == day.day &&
+                      selectedDate.month == day.month &&
+                      selectedDate.year == day.year;
+
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedDate = day;
+                      });
+                    },
+                    child: Container(
+                      width: 60,
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      decoration: BoxDecoration(
+                        color: isSelected ? Colors.red : Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            DateFormat.d().format(day), // Day
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: isSelected ? Colors.white : Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            DateFormat.E().format(day).toUpperCase(), // Weekday
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: isSelected ? Colors.white : Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 17),
             child: Row(

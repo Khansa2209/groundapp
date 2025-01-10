@@ -91,9 +91,10 @@ class ReviewCard extends StatelessWidget {
                       ),
                       Text("12 Thamrin Square St, Jakarta 9921",
                           style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.greyD3D3D3))
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.greyD3D3D3,
+                          ))
                     ],
                   )
                 ],

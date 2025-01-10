@@ -5,7 +5,11 @@ import '../app_constant/app_color.dart';
 class CommonPaswordField extends StatefulWidget {
   final String? title;
   final TextEditingController? controller;
-  const CommonPaswordField({super.key, this.title, this.controller, });
+  const CommonPaswordField({
+    super.key,
+    this.title,
+    this.controller,
+  });
 
   @override
   State<CommonPaswordField> createState() => _CommonPaswordFieldState();
@@ -19,22 +23,23 @@ class _CommonPaswordFieldState extends State<CommonPaswordField> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Container(
-      height: h * 0.06,
+      // height: h * 0.06,
       width: w,
-      margin: EdgeInsets.only(left: w*0.045,right: w*0.045),
+      margin: EdgeInsets.only(left: w * 0.045, right: w * 0.045),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: AppColors.whiteF5F7FA,
+        // color: AppColors.whiteF5F7FA,
       ),
       child: Center(
-        child: TextField(
+        child: TextFormField(
+          validator: (value) => value!.isEmpty ? 'Enter Password' : null,
           controller: widget.controller,
           cursorColor: AppColors.redE73725,
           obscureText: _obscureText,
           decoration: InputDecoration(
             hintText: widget.title,
-            contentPadding: EdgeInsets.all(12),
-            hintStyle: TextStyle(
+            contentPadding: const EdgeInsets.all(12),
+            hintStyle: const TextStyle(
               color: AppColors.grey797979,
             ),
             fillColor: AppColors.whiteF5F7FA,
@@ -55,14 +60,14 @@ class _CommonPaswordFieldState extends State<CommonPaswordField> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 width: 1,
                 color: AppColors.grey797979,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 width: 1,
                 color: AppColors.grey797979,
               ),
