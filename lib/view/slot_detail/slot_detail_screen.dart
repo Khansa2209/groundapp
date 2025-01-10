@@ -33,7 +33,7 @@ class SlotDetailScreen extends StatelessWidget {
                       )
                     ]),
                 child: const Column(
-                  spacing: 10,
+                  // spacing: 10,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -43,21 +43,36 @@ class SlotDetailScreen extends StatelessWidget {
                           fontSize: 16,
                           color: AppColors.black20222C),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     TitleAndValueRow(
                       title: "Name",
                       value: "Aqua Megumin",
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     TitleAndValueRow(
                       title: "Email",
                       value: "aqua@adventurer.com",
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     TitleAndValueRow(
                       title: "Duration",
                       value: "2 Hours",
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     TitleAndValueRow(
                       title: "Start Date",
                       value: "12:00 pm - 02:00 pm",
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     TitleAndValueRow(
                       title: "Date",

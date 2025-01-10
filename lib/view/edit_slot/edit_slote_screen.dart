@@ -271,7 +271,7 @@ class _EditSlotScreenState extends State<EditSlotScreen> {
                   child: Switch(
                       trackOutlineColor:
                           const WidgetStatePropertyAll(Colors.black),
-                      trackOutlineWidth: const WidgetStatePropertyAll(2.5),
+                      trackOutlineWidth:  WidgetStatePropertyAll(2.5),
                       padding: const EdgeInsets.all(0),
                       inactiveTrackColor: Colors.white,
                       inactiveThumbColor: AppColors.black0C0507,
