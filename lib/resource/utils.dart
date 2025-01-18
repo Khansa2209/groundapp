@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:intl/intl.dart';
 import 'package:pitchgo/app_constant/app_color.dart';
 
 class Utils {
@@ -102,5 +103,58 @@ class Utils {
       behavior: SnackBarBehavior.floating,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
     ));
+  }
+
+  static Future<String?> selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2050),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: const ColorScheme.light().copyWith(
+              primary: AppColors
+                  .redE73725, // background color of the header and selected date
+              onPrimary:
+                  Colors.white, // text color of the header and selected date
+            ),
+            dialogBackgroundColor:
+                Colors.white, // background color of the date picker
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    return formatDate(picked.toString());
+  }
+
+  static String formatDate(String date) {
+    DateTime dateTime = DateTime.parse(date);
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(dateTime);
+  }
+
+  static Future<TimeOfDay?> selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: const ColorScheme.light().copyWith(
+              primary: AppColors.redE73725,
+              onPrimary: Colors.white,
+            ),
+            dialogBackgroundColor: Colors.white,
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    return (picked);
   }
 }

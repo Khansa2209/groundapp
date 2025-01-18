@@ -4,10 +4,12 @@ import 'package:pinput/pinput.dart';
 
 import '../../app_constant/app_color.dart';
 import '../../controller/signin_controller.dart';
-import '../../controller/time_controller.dart';
+import '../../controller/otp_controller.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key});
+  const OtpScreen({super.key, required this.profile});
+
+  final String profile;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,8 @@ class OtpScreen extends StatelessWidget {
                   showCursor: true,
                   onCompleted: (pin) {
                     timeController.pinValue = pin;
-                    timeController.checkpin(controller.email.text.trim());
+                    timeController.checkpin(
+                        controller.email.text.trim(), profile);
                   },
                 ),
               ),

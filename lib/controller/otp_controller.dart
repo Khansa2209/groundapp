@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pitchgo/ground_list/ground_list.dart';
+import 'package:pitchgo/view/profile/profile_screen.dart';
 
 import '../network_data/handle_error.dart';
 import '../repository/auth_repository.dart';
@@ -30,7 +31,7 @@ class OtpController extends GetxController {
     });
   }
 
-  void checkpin(String email) async {
+  void checkpin(String email, String profile) async {
     EasyLoading.show();
     try {
       final userData = {"process": "login", "email": email, "otp": pinValue};
@@ -45,8 +46,19 @@ class OtpController extends GetxController {
       }
       if (data["data"] != null) {
         log("Signup Success");
-        SecureStorage().storeLocalData(
-            key: 'userRole', value: data["data"]["user"]["role"]);
+        if (profile == "empty") {
+          Get.offAll(() => const ProfileScreen());
+        } else if (profile == "complete") {
+          await SecureStorage().storeLocalData(
+              key: 'accessToken', value: data["data"]["access"]["token"]);
+          await SecureStorage().storeLocalData(
+              key: 'accessExpires', value: data["data"]["access"]["expires"]);
+
+          await SecureStorage().storeLocalData(
+              key: 'refreshToken', value: data["data"]["access"]["token"]);
+          await SecureStorage().storeLocalData(
+              key: 'refreshExpires', value: data["data"]["access"]["expires"]);
+        }
         Get.offAll(() => const GroundsListScreen());
       }
     } catch (error) {

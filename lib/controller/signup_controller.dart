@@ -27,7 +27,7 @@ class SignupController extends GetxController {
         "fullName": name.text.trim(),
         "email": email.text.trim(),
         "password": password.text.trim(),
-        "role": "admin",
+        "role": "owner",
       };
 
       final signUpData = await _myRepo.signUpApi(userData);

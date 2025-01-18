@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:pitchgo/view/otp_screen/otp_screen.dart';
 
+import '../ground_list/ground_list.dart';
 import '../network_data/handle_error.dart';
 import '../repository/auth_repository.dart';
 import '../resource/secure_storage.dart';
@@ -35,7 +36,16 @@ class LoginController extends GetxController {
       }
       if (data["data"] != null) {
         log("Signup Success");
-        Get.to(() => const OtpScreen());
+        Utils.showSuccess(data["message"]);
+        if (data["data"]["profile"] == null) {
+          Get.to(() => const OtpScreen(
+                profile: "empty",
+              ));
+        } else {
+          Get.to(() => const OtpScreen(
+                profile: "complete",
+              ));
+        }
       }
     } catch (error) {
       log("==============");

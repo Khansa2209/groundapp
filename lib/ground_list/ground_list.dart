@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pitchgo/view/slot_detail/slot_detail_screen.dart';
 import 'package:pitchgo/add_ground/add_ground.dart';
-
-import '../common_widget/common_text.dart';
 import '../view/edit_ground_detail/edit_ground_detail.dart';
 
 class GroundsListScreen extends StatelessWidget {
@@ -21,85 +20,62 @@ class GroundsListScreen extends StatelessWidget {
               'reviews': '4.5 reviews',
             });
 
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Grounds List'),
-      //   centerTitle: true,
-      //   leading: Image.asset('assets/images/l_icon_1.png', width: 5, height: 5),
-      // ),
-
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 4, left: 15),
-              child: Row(
-                children: [
-                  Image.asset('assets/images/l_icon_1.png',
-                      width: 20, height: 20),
-                  SizedBox(width: 80),
-                  commonText(
-                    text: 'Grounds List',
-                    fontSize: 23,
-                    fontWeight: FontWeight.w500,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 23,
-            ),
-            // Moved the button to the right using alignment
-            Align(
-              alignment: Alignment.centerRight, // Aligned to the right side
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddNewGroundScreen()));
-                  // Add functionality here
-                },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Text(
-                    'Create New Listing',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Grounds List',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
+          ),
+          centerTitle: true,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Column(
+            children: [
+              // Moved the button to the right using alignment
+              Align(
+                alignment: Alignment.centerRight, // Aligned to the right side
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => const AddNewGroundScreen());
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Text(
+                      'Create New Listing',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 2),
+              const SizedBox(height: 15),
 
-            // Grounds List with reduced size
-            Expanded(
-              child: ListView.builder(
-                itemCount: grounds.length,
-                itemBuilder: (context, index) {
-                  return GroundCard(
-                      ground: grounds[index],
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SlotDetailScreen(),
-                          ),
-                        );
-                      });
-                },
+              // Grounds List with reduced size
+              Expanded(
+                child: ListView.builder(
+                  itemCount: grounds.length,
+                  itemBuilder: (context, index) {
+                    return GroundCard(
+                        ground: grounds[index],
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SlotDetailScreen(),
+                            ),
+                          );
+                        });
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -117,6 +93,7 @@ class GroundCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+        color: Colors.white,
         margin: const EdgeInsets.only(bottom: 12),
         elevation: 3,
         child: Padding(

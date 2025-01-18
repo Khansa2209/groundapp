@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:pitchgo/add_ground/add_ground.dart';
 import 'splash_screen.dart';
 
 void main() {
